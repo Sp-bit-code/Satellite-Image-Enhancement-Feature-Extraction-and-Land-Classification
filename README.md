@@ -1,24 +1,31 @@
 # Satellite-Image-Enhancement-Feature-Extraction-and-Land-Classification
 
-Satellite Image Land Classification System
-1. Overview
 
-This project is a deep learning-based system that classifies satellite images into different land categories such as Forest, River, SeaLake, Residential, and Industrial. It integrates image preprocessing, enhancement, and classification into a single pipeline. A Streamlit-based interface allows users to upload images and get real-time predictions with confidence scores.
 
-The system is designed to demonstrate practical implementation of computer vision concepts along with modern deep learning techniques.
+# Satellite Image Land Classification System
 
-2. Project Architecture
+## 1. Overview
+
+This project is a deep learning-based system that classifies satellite images into different land categories such as Forest, River, SeaLake, Residential, and Industrial.
+
+It integrates image preprocessing, enhancement, and classification into a single pipeline. A Streamlit-based interface allows users to upload images and get real-time predictions with confidence scores.
+
+---
+
+## 2. Project Architecture
+
+```
 satellite_image_land_classification/
 │
-├── app.py                          # Streamlit application
+├── app.py
 ├── model/
 │   ├── land_classifier_model.keras
 │   └── class_labels.json
 │
 ├── utils/
-│   ├── classification.py           # Prediction pipeline
-│   ├── image_enhancement.py        # Enhancement pipeline
-│   └── feature_extraction.py       # Feature extraction methods
+│   ├── classification.py
+│   ├── image_enhancement.py
+│   └── feature_extraction.py
 │
 ├── data/
 │   ├── sample_images/
@@ -26,165 +33,256 @@ satellite_image_land_classification/
 │
 ├── requirements.txt
 └── README.md
+```
 
+---
 
-3. Model Details (Important)
-Model Type
-Convolutional Neural Network (CNN)
-Based on MobileNetV2 architecture (lightweight and efficient)
-Input Specifications
-Input Size: 224 × 224 × 3
-Color Format: RGB
-Normalization: Image pixel values scaled to [0, 1]
-Output
-Softmax layer for multi-class classification
-Output shape: (1, 10)
-Classes
-AnnualCrop
-Forest
-HerbaceousVegetation
-Highway
-Industrial
-Pasture
-PermanentCrop
-Residential
-River
-SeaLake
-Training Details
-Dataset: EuroSAT (satellite images)
-Loss Function: Categorical Crossentropy
-Optimizer: Adam
-Metrics: Accuracy
-Important Note (Why your model was giving wrong results)
-If preprocessing during inference ≠ preprocessing during training → wrong predictions
-Example issues:
-Wrong normalization (0–255 instead of 0–1)
-BGR vs RGB mismatch
-Using enhanced image instead of raw image
-Label order mismatch
-4. Tech Stack
-Programming Language
-Python
-Libraries Used
-TensorFlow / Keras
-OpenCV
-NumPy
-Streamlit
-PIL
-5. Installation (All pip commands)
-pip install tensorflow
-pip install opencv-python
-pip install numpy
-pip install streamlit
-pip install pillow
-pip install matplotlib
-pip install scikit-learn
+## 3. Model Details
 
-Or use single command:
+### Model Type
 
+* Convolutional Neural Network (CNN)
+* Based on MobileNetV2 architecture
+
+### Input Specifications
+
+* Input Size: 224 × 224 × 3
+* Color Format: RGB
+* Normalization: Pixel values scaled to [0, 1]
+
+### Output
+
+* Softmax classification layer
+* Output shape: (1, 10)
+
+### Classes
+
+* AnnualCrop
+* Forest
+* HerbaceousVegetation
+* Highway
+* Industrial
+* Pasture
+* PermanentCrop
+* Residential
+* River
+* SeaLake
+
+### Training Details
+
+* Dataset: EuroSAT
+* Loss Function: Categorical Crossentropy
+* Optimizer: Adam
+* Metric: Accuracy
+
+### Important Notes (Critical for Accuracy)
+
+* Preprocessing during inference must match training
+* Always use RGB format
+* Normalize image (divide by 255)
+* Do not use enhanced image for prediction
+* Ensure label order is correct
+
+---
+
+## 4. Tech Stack
+
+### Language
+
+* Python
+
+### Libraries
+
+* TensorFlow / Keras
+* OpenCV
+* NumPy
+* Streamlit
+* PIL
+
+---
+
+## 5. Installation
+
+### Install all dependencies
+
+```
 pip install tensorflow opencv-python numpy streamlit pillow matplotlib scikit-learn
-6. How to Run the Project
-Method 1: Normal Command Line
+```
+
+---
+
+## 6. How to Run
+
+### Method 1: Normal
+
+```
 streamlit run app.py
-Method 2: Using .bat File (Windows)
+```
 
-Create a file named run_app.bat:
+---
 
+### Method 2: Using .bat File (Windows)
+
+Create file: `run_app.bat`
+
+```
 @echo off
 cd /d %~dp0
-call venv\Scripts\activate
 streamlit run app.py
 pause
+```
 
-Then double-click the file.
+Double click to run.
 
-Method 3: Without Virtual Environment
+---
+
+### Method 3: Using Python module
+
+```
 python -m streamlit run app.py
-Method 4: VS Code
-Open project folder
-Open terminal
-Run:
+```
+
+---
+
+### Method 4: VS Code
+
+* Open folder
+* Open terminal
+* Run:
+
+```
 streamlit run app.py
-7. Workflow of the System
-User uploads satellite image
-Image is validated and preprocessed
-Resized to model input size
-Converted to RGB
-Normalized
-Passed into trained CNN model
-Model outputs class probabilities
-Top predictions displayed
-8. Image Enhancement Module
+```
 
-This module improves image quality but should not be used for classification input.
+---
 
-Techniques Used:
-CLAHE (contrast enhancement)
-Noise removal (denoising)
-Sharpening
-Gamma correction
-Histogram processing
-9. Syllabus Topics Covered (Very Important)
-1. Digital Image Formation and Low-Level Processing
-Image representation using pixel matrices
-Image transformations (scaling, resizing)
-Filtering and convolution (denoise, blur)
-Histogram processing and enhancement (CLAHE)
-Image enhancement techniques
-2. Depth Estimation and Multi-Camera Views
-Conceptual understanding of perspective projection
-Basic geometric transformations used in preprocessing
-Not fully implemented but theoretical foundation used
-3. Feature Extraction and Image Segmentation
-Edge detection concepts (used in enhancement pipeline)
-Texture understanding in satellite images
-CNN automatically extracts features (deep feature extraction)
-Concepts of HOG, SIFT, etc. replaced by deep learning
-4. Pattern Analysis and Motion Analysis
-Classification using supervised learning
-CNN model (Artificial Neural Network)
-Probability-based decision making (Softmax)
-Accuracy evaluation
-Confusion matrix and classification report
-5. Shape from X
-Light and surface interaction (important for satellite images)
-Texture and color-based classification
-Reflectance understanding (implicitly learned by CNN)
-10. Common Issues and Fixes
-Issue: Model predicts same class (SeaLake always)
+## 7. System Workflow
 
-Possible Reasons:
+1. User uploads image
+2. Image is validated
+3. Resized to model size
+4. Converted to RGB
+5. Normalized
+6. Passed into CNN
+7. Predictions generated
+8. Results displayed
 
-Wrong preprocessing
-Label mismatch
-Model overfitting
-Using enhanced image
+---
 
-Fix:
+## 8. Image Enhancement Module
 
-Ensure RGB format
-Normalize correctly
-Use original image
-Verify label order
-Issue: Model not loading
+Used for improving image quality (not for model input)
 
-Fix:
+### Techniques:
 
-Convert .h5 → .keras
-Match TensorFlow version
-Use custom layer handling (TrueDivide)
-11. Applications
-Environmental monitoring
-Urban planning
-Agriculture analysis
-Water body detection
-Remote sensing
-12. Future Improvements
-Improve model accuracy
-Add more datasets
-Add Grad-CAM visualization
-Deploy on cloud
-Add real-time satellite data
-13. Conclusion
+* CLAHE
+* Denoising
+* Sharpening
+* Gamma correction
+* Histogram processing
 
-This project successfully demonstrates the integration of computer vision and deep learning for real-world land classification problems. It combines theoretical concepts from image processing with practical implementation using modern AI techniques
+---
+
+## 9. Syllabus Coverage
+
+### Digital Image Formation and Low-Level Processing
+
+* Image representation
+* Image transformation
+* Convolution and filtering
+* Image enhancement
+* Histogram processing
+
+---
+
+### Depth Estimation and Multi-Camera Views
+
+* Perspective transformation
+* Geometric understanding of images
+* Basic spatial transformations
+
+---
+
+### Feature Extraction and Image Segmentation
+
+* Edge detection concepts
+* Texture understanding
+* CNN-based automatic feature extraction
+* Scale-space concepts
+
+---
+
+### Pattern Analysis and Motion Analysis
+
+* Classification using supervised learning
+* CNN (Artificial Neural Networks)
+* Probability-based prediction
+* Accuracy evaluation
+* Confusion matrix
+
+---
+
+### Shape from X
+
+* Light and surface interaction
+* Texture and color-based classification
+* Reflectance understanding
+
+---
+
+## 10. Common Issues and Fixes
+
+### Issue: Same prediction (SeaLake)
+
+**Reasons:**
+
+* Wrong preprocessing
+* Label mismatch
+* Model overfitting
+* Using enhanced image
+
+**Fix:**
+
+* Use RGB format
+* Normalize properly
+* Use original image
+* Check label order
+
+---
+
+### Issue: Model not loading
+
+**Fix:**
+
+* Use `.keras` format
+* Match TensorFlow version
+* Handle custom layers properly
+
+---
+
+## 11. Applications
+
+* Environmental monitoring
+* Urban planning
+* Agriculture analysis
+* Water detection
+* Remote sensing
+
+---
+
+## 12. Future Improvements
+
+* Improve model accuracy
+* Add more classes
+* Add Grad-CAM visualization
+* Deploy on cloud
+* Integrate satellite APIs
+
+---
+
+## 13. Conclusion
+
+This project demonstrates how computer vision and deep learning can be used to solve real-world land classification problems using satellite imagery. It combines theoretical concepts with practical implementation.
+
+
+Just tell 👍
