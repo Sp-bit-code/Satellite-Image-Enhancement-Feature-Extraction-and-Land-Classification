@@ -1,7 +1,5 @@
 # Satellite-Image-Enhancement-Feature-Extraction-and-Land-Classification
 
-
-
 # Satellite Image Land Classification System
 
 ## 1. Overview
@@ -14,7 +12,7 @@ It integrates image preprocessing, enhancement, and classification into a single
 
 ## 2. Project Architecture
 
-```
+```id="8gcb0t"
 satellite_image_land_classification/
 │
 ├── app.py
@@ -37,7 +35,25 @@ satellite_image_land_classification/
 
 ---
 
-## 3. Model Details
+## 3. Dataset
+
+### EuroSAT Dataset
+
+This project uses the EuroSAT dataset for training the model.
+
+Dataset Link:
+[https://github.com/phelber/eurosat](https://github.com/phelber/eurosat)
+
+### Dataset Details
+
+* 27,000+ labeled satellite images
+* 10 classes
+* RGB images
+* Size: 64×64 (can be resized to 224×224 for training)
+
+---
+
+## 4. Model Details
 
 ### Model Type
 
@@ -70,7 +86,6 @@ satellite_image_land_classification/
 
 ### Training Details
 
-* Dataset: EuroSAT
 * Loss Function: Categorical Crossentropy
 * Optimizer: Adam
 * Metric: Accuracy
@@ -85,7 +100,7 @@ satellite_image_land_classification/
 
 ---
 
-## 4. Tech Stack
+## 5. Tech Stack
 
 ### Language
 
@@ -101,62 +116,115 @@ satellite_image_land_classification/
 
 ---
 
-## 5. Installation
+## 6. Installation
 
-### Install all dependencies
-
-```
+```id="2m7k6j"
 pip install tensorflow opencv-python numpy streamlit pillow matplotlib scikit-learn
 ```
 
 ---
 
-## 6. How to Run
+## 7. Complete Steps (Training + Running)
 
-### Method 1: Normal
+### Step 1: Download Dataset
+
+* Download EuroSAT dataset from:
+  [https://github.com/phelber/eurosat](https://github.com/phelber/eurosat)
+
+* Extract into:
 
 ```
+data/dataset/
+```
+
+---
+
+### Step 2: Train the Model
+
+You need to train your model before running prediction.
+
+Basic training flow:
+
+1. Load dataset
+2. Resize images to 224×224
+3. Normalize images (divide by 255)
+4. Encode labels
+5. Train MobileNetV2 model
+6. Save model
+
+Example (basic idea):
+
+```id="nd4oaf"
+model.save("model/land_classifier_model.keras")
+```
+
+---
+
+### Step 3: Verify Model & Labels
+
+* Ensure:
+
+  * Model file exists
+  * Label order matches training
+  * Classes = 10
+
+---
+
+### Step 4: Run the Application
+
+```id="u9p1p8"
 streamlit run app.py
 ```
 
 ---
 
-### Method 2: Using .bat File (Windows)
+### Step 5: Upload Image
 
-Create file: `run_app.bat`
+* Upload satellite image
+* System will:
 
-```
+  * Preprocess image
+  * Predict class
+  * Show confidence
+
+---
+
+## 8. Alternative Run Methods
+
+### Using .bat File (Windows)
+
+Create `run_app.bat`
+
+```id="2bzn4x"
 @echo off
 cd /d %~dp0
 streamlit run app.py
 pause
 ```
 
-Double click to run.
-
 ---
 
-### Method 3: Using Python module
+### Using Python Module
 
-```
+```id="y7l2ts"
 python -m streamlit run app.py
 ```
 
 ---
 
-### Method 4: VS Code
+### Using VS Code
 
 * Open folder
 * Open terminal
 * Run:
 
-```
+```id="e49c3t"
 streamlit run app.py
 ```
 
 ---
 
-## 7. System Workflow
+## 9. System Workflow
 
 1. User uploads image
 2. Image is validated
@@ -169,7 +237,7 @@ streamlit run app.py
 
 ---
 
-## 8. Image Enhancement Module
+## 10. Image Enhancement Module
 
 Used for improving image quality (not for model input)
 
@@ -183,7 +251,7 @@ Used for improving image quality (not for model input)
 
 ---
 
-## 9. Syllabus Coverage
+## 11. Syllabus Coverage
 
 ### Digital Image Formation and Low-Level Processing
 
@@ -198,25 +266,25 @@ Used for improving image quality (not for model input)
 ### Depth Estimation and Multi-Camera Views
 
 * Perspective transformation
-* Geometric understanding of images
-* Basic spatial transformations
+* Geometric understanding
+* Spatial transformations
 
 ---
 
 ### Feature Extraction and Image Segmentation
 
 * Edge detection concepts
-* Texture understanding
-* CNN-based automatic feature extraction
+* Texture analysis
+* CNN-based feature extraction
 * Scale-space concepts
 
 ---
 
 ### Pattern Analysis and Motion Analysis
 
-* Classification using supervised learning
-* CNN (Artificial Neural Networks)
-* Probability-based prediction
+* Supervised learning
+* CNN classification
+* Probability prediction
 * Accuracy evaluation
 * Confusion matrix
 
@@ -225,12 +293,12 @@ Used for improving image quality (not for model input)
 ### Shape from X
 
 * Light and surface interaction
-* Texture and color-based classification
-* Reflectance understanding
+* Texture and color understanding
+* Reflectance concepts
 
 ---
 
-## 10. Common Issues and Fixes
+## 12. Common Issues and Fixes
 
 ### Issue: Same prediction (SeaLake)
 
@@ -260,7 +328,7 @@ Used for improving image quality (not for model input)
 
 ---
 
-## 11. Applications
+## 13. Applications
 
 * Environmental monitoring
 * Urban planning
@@ -270,19 +338,17 @@ Used for improving image quality (not for model input)
 
 ---
 
-## 12. Future Improvements
+## 14. Future Improvements
 
 * Improve model accuracy
 * Add more classes
 * Add Grad-CAM visualization
 * Deploy on cloud
-* Integrate satellite APIs
+* Real-time satellite API integration
 
 ---
 
-## 13. Conclusion
+## 15. Conclusion
 
-This project demonstrates how computer vision and deep learning can be used to solve real-world land classification problems using satellite imagery. It combines theoretical concepts with practical implementation.
+This project demonstrates how computer vision and deep learning can be applied to solve real-world land classification problems using satellite imagery. It integrates theory and practical implementation effectively.
 
-
-Just tell 👍
